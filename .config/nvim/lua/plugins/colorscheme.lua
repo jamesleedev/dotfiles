@@ -30,7 +30,9 @@ return {
 			treesitter = true,
 			treesitter_context = true,
 			which_key = true,
+			cmp = true,
 		},
+		transparent_background = true,
 	},
 	init = function()
 		vim.cmd.colorscheme("catppuccin-mocha")
