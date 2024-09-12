@@ -77,7 +77,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(copyfile nvm history zsh-syntax-highlighting zsh-autosuggestions vi-mode)
+plugins=(copyfile nvm history zsh-syntax-highlighting zsh-autosuggestions vi-mode ssh)
 
 # Docker plugin configs
 zstyle ':completion:*:*:docker:*' option-stacking yes
