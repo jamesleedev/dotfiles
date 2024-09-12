@@ -2,7 +2,7 @@
 # from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 # original author: https://github.com/ThePrimeagen
 
-export FZF_DEFAULT_COMMAND="fd --type d --absolute-path --exact-depth 1 --color=always --search-path ~/Jamesl.dev --search-path ~/Work --search-path ~/"
+export FZF_DEFAULT_COMMAND='echo "$(fd --type d --absolute-path --exact-depth 1 --search-path ~/Jamesl.dev --search-path ~/Work --search-path ~/)\n/home/james\n/home/james/.local/bin"'
 FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --ansi"
 
 if [[ $# -eq 1 ]]; then

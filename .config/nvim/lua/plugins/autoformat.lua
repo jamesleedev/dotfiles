@@ -34,6 +34,11 @@ return { -- Autoformat
 			javascriptreact = { { "eslint_d", "prettierd", "prettier" } },
 			typescript = { { "eslint_d", "prettierd", "prettier" } },
 			typescriptreact = { { "eslint_d", "prettierd", "prettier" } },
+			c = { "clangd" },
+			go = { "gofmt" },
+			gomod = { "gofmt" },
+			gowork = { "gofmt" },
+			gotmpl = { "gofmt" },
 		},
 	},
 }

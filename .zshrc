@@ -83,9 +83,6 @@ plugins=(copyfile nvm history zsh-syntax-highlighting zsh-autosuggestions vi-mod
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-# Change keybinding to vim before loading omzsh
-bindkey -v
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
