@@ -170,8 +170,8 @@ return { -- LSP Configuration & Plugins
 		--  - settings (table): Override the default settings passed when initializing the server.
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
-			-- clangd = {},
-			-- gopls = {},
+			clangd = {},
+			gopls = {},
 			pyright = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -180,7 +180,7 @@ return { -- LSP Configuration & Plugins
 			--    https://github.com/pmizio/typescript-tools.nvim
 			--
 			-- But for many setups, the LSP (`tsserver`) will work just fine
-			tsserver = {},
+			ts_ls = {},
 			eslint = {},
 			tailwindcss = {},
 
@@ -225,8 +225,6 @@ return { -- LSP Configuration & Plugins
 			"stylua", -- Used to format Lua code
 			"prettierd", -- Used to apply prettier formatting
 			"eslint_d", -- faster eslint
-			"clangd", -- c lsp
-			"gopls", -- go lsp
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

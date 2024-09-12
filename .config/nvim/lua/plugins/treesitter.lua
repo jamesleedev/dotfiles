@@ -5,15 +5,18 @@ return { -- Highlight, edit, and navigate code
 		ensure_installed = {
 			-- languages
 			"c",
+			"cpp",
 			"lua",
 			"javascript",
 			"typescript",
 			"php",
 			"python",
+			"go",
 			-- language docs
 			"luadoc",
 			"jsdoc",
 			"vimdoc",
+			"phpdoc",
 			-- web
 			"html",
 			"css",
@@ -32,6 +35,7 @@ return { -- Highlight, edit, and navigate code
 			"dockerfile",
 			"ssh_config",
 			"csv",
+			"nginx",
 		},
 		-- Autoinstall languages that are not installed
 		auto_install = true,
