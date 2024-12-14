@@ -16,6 +16,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -77,7 +78,7 @@ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(copyfile nvm zsh-syntax-highlighting zsh-autosuggestions vi-mode ssh)
+plugins=(copyfile nvm zsh-syntax-highlighting zsh-autosuggestions vi-mode ssh git zsh-bat you-should-use)
 
 # Docker plugin configs
 zstyle ':completion:*:*:docker:*' option-stacking yes
@@ -137,3 +138,4 @@ export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
