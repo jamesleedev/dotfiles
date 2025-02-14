@@ -43,3 +43,6 @@ vim.keymap.set("n", "<leader>wq", "<C-w>q")
 
 -- # Netrw remaps
 vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+
+-- # Clipboard remaps
+vim.keymap.set("n", "<leader>p", '"0p')
