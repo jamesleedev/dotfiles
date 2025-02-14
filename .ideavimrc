@@ -1,0 +1,73 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+let mapleader = " "
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=10
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+"" Custom plugins
+" Keyboard only file browser
+Plug 'preservim/nerdtree'
+
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+" xnoremap p P
+
+" fit - Find in Tree
+map <leader>fit <Action>(SelectInProjectView)
+
+" fu - Find Usages
+map <leader>fu <Action>(FindUsages)
+
+" ws - Window Split
+map <leader>ws <Action>(MoveTabRight)
+map <leader>wo <Action>(MoveEditorToOppositeTabGroup)
+
+" ff - Find File
+map <leader>ff <Action>(GotoFile)
+
+map gc <Action>(CommentByLineComment)
+map gbc <Action>(CommentByBlockComment)
+
+" p paste from yanked register
+map <leader>p \"0p
+
+set relativenumber
+set number
+set showcmd
+set showmode
+set nohlsearch
+set ignorecase
+set smartcase
+
+set clipboard+=ideaput
+set clipboard+=unnamedplus
+
+set ideajoin
