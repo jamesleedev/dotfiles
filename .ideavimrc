@@ -27,6 +27,12 @@ Plug 'tpope/vim-commentary'
 " Keyboard only file browser
 Plug 'preservim/nerdtree'
 
+" Surround plugin
+Plug 'tpope/vim-surround'
+
+" aq, iq, ab, ib motions
+set mini-ai
+
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
@@ -52,6 +58,7 @@ map <leader>wo <Action>(MoveEditorToOppositeTabGroup)
 
 " ff - Find File
 map <leader>ff <Action>(GotoFile)
+map <leader>fg <Action>(FindInPath)
 
 map gc <Action>(CommentByLineComment)
 map gbc <Action>(CommentByBlockComment)
