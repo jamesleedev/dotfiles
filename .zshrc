@@ -1,141 +1,172 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# === Setup ===
+# Use vim mode
+bindkey -v
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# setup run-help
+unalias run-help 2>/dev/null
+autoload -Uz run-help
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# === Options ===
+## 16.2.1 Changing Directories
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_minus
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-#ZSH_THEME="robbyrussell"
+## 16.2.2 Completion
+setopt always_to_end
+setopt complete_in_word
+unsetopt list_beep
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+## 16.2.3 Expansion and Globbing
+setopt extendedglob
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+## 16.2.4 History
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000000
+SAVEHIST=1000000000
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+setopt extended_history
+setopt hist_expire_dups_first
+setopt share_history
 
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+## 16.2.6 Input/Output
+unsetopt flow_control
 
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
+zmodload zsh/complist
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# === ZLE ===
+# Turn off highlight on paste
+zle_highlight=(paste:none)
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+zstyle ':completion:*' menu select
+# The following lines were added by compinstall
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+zstyle :compinstall filename '/home/james/.zshrc'
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+# === Keybinds ===
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'left' vi-backward-char
+bindkey -M menuselect 'down' vi-down-line-or-history
+bindkey -M menuselect 'up' vi-up-line-or-history
+bindkey -M menuselect 'right' vi-forward-char
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
+# autosuggest plugin keybinds 
+bindkey '^ ' autosuggest-accept
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(copyfile nvm zsh-syntax-highlighting zsh-autosuggestions vi-mode ssh git zsh-bat you-should-use)
-
-# Docker plugin configs
-zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
+# sets editor based on ssh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# keytimeout in 1/100th of a second
+KEYTIMEOUT=1
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# History configs
-HISTFILE=~/.zsh_history
-HISTSIZE=1000000000
-SAVEHIST=1000000000
-setopt appendhistory
-
-# Keytimeout
-KEYTIMEOUT=15
-
-# Autosuggest plugin keybinds 
-bindkey '^ ' autosuggest-accept
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ### Custom
-bindkey -s ^f "tmux-sessioniser\n"
+# bindkey -s ^f "tmux-sessioniser\n"
 
+# catppuccin mocha
 export FZF_DEFAULT_OPTS=" \
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
+# added by nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# === Functions ===
+# Get current branch name
+function get_current_git_branch() {
+    echo $(git branch --show-current)
+}
+
+
+# === Aliases ===
+# cd
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+alias -g ......='../../../../..'
+
+alias 1='cd -1'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+
+# ls
+alias ls="ls --color=auto"
+alias la="ls -lAh --color=auto"
+alias lat="ls -lAhtr"  # reverse so most recent edited is the first line above new prompt
+
+# git
+alias g="git"
+alias gst="git status"
+alias ga="git add"
+alias gaa="git add --all"
+alias gcm="git commit -m"
+alias gcmsg="git commit -m"
+alias gp="git push"
+alias gpsup='git push -u origin "$(get_current_git_branch)"'
+alias gptag="git push --tags"
+alias gpl="git pull"
+alias gl="git log --oneline"
+alias glog="git log --abbrev-commit --decorate"
+alias glogg="git log --graph --abbrev-commit --pretty=oneline --decorate"
+alias gt="git tag"
+alias gtls="git describe --tags --abbrev=0"
+
+# cat
+alias cat="bat"
+
+
+# === Plugins ===
+# zsh-syntax-highlighting
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# zsh-autosuggestions
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+# === Prompt ===
+# Starship
+eval "$(starship init zsh)"
+
+# function osc7-pwd() {
+#     emulate -L zsh # also sets localoptions for us
+#     setopt extendedglob
+#     local LC_ALL=C
+#     local DIRECTORY=${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+#     printf '\e]7;file://%s%s\e\\' $HOST $DIRECTORY
+#     printf '\e]0;%s\a' $DIRECTORY
+# }
+#
+# function chpwd-osc7-pwd() {
+#     (( ZSH_SUBSHELL )) || osc7-pwd
+# }
+# add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+#
+# function preexec-osc0-last-command() {
+#     emulate -L zsh
+#     echo -en "\e]0;$1\a";
+# }
+# add-zsh-hook -Uz preexec preexec-osc0-last-command
+#
