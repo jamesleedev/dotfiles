@@ -1,3 +1,4 @@
+
 # === Setup ===
 # Use vim mode
 bindkey -v
@@ -5,6 +6,17 @@ bindkey -v
 # setup run-help
 unalias run-help 2>/dev/null
 autoload -Uz run-help
+
+# sets editor based on ssh
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+# keytimeout in 1/100th of a second
+KEYTIMEOUT=1
+
 
 # === Options ===
 ## 16.2.1 Changing Directories
@@ -32,18 +44,40 @@ setopt share_history
 ## 16.2.6 Input/Output
 unsetopt flow_control
 
-zmodload zsh/complist
 
 
 # === ZLE ===
 # Turn off highlight on paste
 zle_highlight=(paste:none)
 
+# === Completion ===
+# Enables menu to select completions
 zstyle ':completion:*' menu select
+
+# Sets completer precedence
+zstyle ':completion:*' completer _extensions _expand _complete _ignored _approximate
+
+# Use cache for completions
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "~/.cache/zsh/.zcompcache"
+
+# Group completions
+zstyle ':completion:*' group-name ''
+
+# Actual styling
+zstyle ':completion:*:descriptions' format '%F{blue}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- %d --%f'
+zstyle ':completion:*:descriptions' format '%F{magenta}-- %d --%f'
+zstyle ':completion:*:corrections' format '%F{yellow}?- %d (errors: %e) -?%f'
+
+
 # The following lines were added by compinstall
-zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}'
+
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
+zstyle ':completion:*' max-errors 2
 zstyle :compinstall filename '/home/james/.zshrc'
 
+zmodload zsh/complist
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
@@ -60,21 +94,8 @@ bindkey -M menuselect 'down' vi-down-line-or-history
 bindkey -M menuselect 'up' vi-up-line-or-history
 bindkey -M menuselect 'right' vi-forward-char
 
-# autosuggest plugin keybinds 
-bindkey '^ ' autosuggest-accept
 
-# sets editor based on ssh
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
-
-# keytimeout in 1/100th of a second
-KEYTIMEOUT=1
-
-
-### Custom
+# === Custom Misc ===
 # bindkey -s ^f "tmux-sessioniser\n"
 
 # catppuccin mocha
@@ -89,7 +110,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # === Functions ===
-# Get current branch name
+# Get current branch name, will make this more robust later, don't use if copying configs
 function get_current_git_branch() {
     echo $(git branch --show-current)
 }
@@ -145,24 +166,28 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # zsh-autosuggestions
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# autosuggest plugin keybinds 
+bindkey '^ ' autosuggest-accept
 
 # === Prompt ===
 # Starship
 eval "$(starship init zsh)"
 
-# function osc7-pwd() {
-#     emulate -L zsh # also sets localoptions for us
-#     setopt extendedglob
-#     local LC_ALL=C
-#     local DIRECTORY=${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
-#     printf '\e]7;file://%s%s\e\\' $HOST $DIRECTORY
-#     printf '\e]0;%s\a' $DIRECTORY
-# }
-#
-# function chpwd-osc7-pwd() {
-#     (( ZSH_SUBSHELL )) || osc7-pwd
-# }
-# add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+# === Hooks ===
+# Allows foot to spawn new window in current directory by setting OSC-7
+function osc7-pwd() {
+    emulate -L zsh # also sets localoptions for us
+    setopt extendedglob
+    local LC_ALL=C
+    local DIRECTORY=${PWD//(#m)([^@-Za-z&-;_~])/%${(l:2::0:)$(([##16]#MATCH))}}
+    printf '\e]7;file://%s%s\e\\' $HOST $DIRECTORY
+}
+
+function chpwd-osc7-pwd() {
+    (( ZSH_SUBSHELL )) || osc7-pwd
+}
+add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
 #
 # function preexec-osc0-last-command() {
 #     emulate -L zsh
@@ -170,3 +195,4 @@ eval "$(starship init zsh)"
 # }
 # add-zsh-hook -Uz preexec preexec-osc0-last-command
 #
+

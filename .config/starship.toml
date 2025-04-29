@@ -5,14 +5,18 @@
 # Removes blank line between shell prompts
 add_newline = false
 
+right_format = """$cmd_duration$time"""
+
 # === Modules ===
 [os]
-disabled = false
+disabled = true
 style = "blue"
 
 [line_break]
 disabled = true
 
+[time]
+disabled = false
 
 # === Nerd font preset ===
 [aws]

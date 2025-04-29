@@ -51,3 +51,12 @@ theme = catppuccin-mocha
 background-opacity = 0.95
 background-blur = true
 
+font-size = 12
+
+cursor-style = block
+
+window-width = 132
+window-height = 43
+
+shell-integration-features = no-cursor
+
