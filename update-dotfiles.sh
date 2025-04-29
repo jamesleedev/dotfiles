@@ -1,7 +1,7 @@
 #!/bin/bash
 
-cp ~/.zshrc .
-cp ~/.zprofile .
+cp -r ~/.config/zsh/ ./.config/
+cp ~/.zshenv .
 cp ~/.tmux.conf .
 cp -r ~/.config/nvim/ ./.config/
 cp -r ~/.config/foot/ ./.config/
