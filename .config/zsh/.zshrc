@@ -39,7 +39,7 @@ unsetopt list_beep
 setopt extendedglob
 
 ## 16.2.4 History
-HISTFILE=~/.zsh_history
+HISTFILE=$HOME/.zsh_history
 HISTSIZE=1000000000
 SAVEHIST=1000000000
 
@@ -90,6 +90,15 @@ function get_current_git_branch() {
     echo $(git branch --show-current)
 }
 
+# Small alias for my standard zstd opts
+function zstd5l () {
+  if [[ -n $1 ]]; then
+    echo "Input file: $1"
+    zstd -5 --long -v --progress -T0 --auto-threads=logical $1 -o $1.zst
+  else
+    echo 'Input file is required.'
+  fi
+}
 
 # === Aliases ===
 # cd
@@ -129,6 +138,12 @@ alias glog="git log --abbrev-commit --decorate"
 alias glogg="git log --graph --abbrev-commit --pretty=oneline --decorate"
 alias gt="git tag"
 alias gtls="git describe --tags --abbrev=0"
+alias gco="git checkout"
+alias gcb="git checkout -b"
+alias gbd="git branch -d"
+alias gbD="git branch -D"
+alias gdiff="git diff HEAD"
+alias gdiff1="git diff HEAD~1"
 
 # cat
 alias cat="bat"
@@ -169,6 +184,43 @@ ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
 ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BLOCK
 ZVM_VISUAL_MODE_CURSOR=$ZVM_CURSOR_BLINKING_UNDERLINE
 
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd history completion)
+
 # autosuggest plugin keybinds 
 bindkey '^ ' autosuggest-accept
 
+# autosuggest cycle through suggestions
+# bindkey "^[[A" history-beginning-search-backward
+# bindkey "^[[B" history-beginning-search-forward
+
+# taken from https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/key-bindings.zsh
+# Start typing + [Up-Arrow] - fuzzy find history forward
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+
+bindkey -M emacs "^[[A" up-line-or-beginning-search
+bindkey -M viins "^[[A" up-line-or-beginning-search
+bindkey -M vicmd "^[[A" up-line-or-beginning-search
+if [[ -n "${terminfo[kcuu1]}" ]]; then
+  bindkey -M emacs "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcuu1]}" up-line-or-beginning-search
+fi
+
+# Start typing + [Down-Arrow] - fuzzy find history backward
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey -M emacs "^[[B" down-line-or-beginning-search
+bindkey -M viins "^[[B" down-line-or-beginning-search
+bindkey -M vicmd "^[[B" down-line-or-beginning-search
+if [[ -n "${terminfo[kcud1]}" ]]; then
+  bindkey -M emacs "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M viins "${terminfo[kcud1]}" down-line-or-beginning-search
+  bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
+fi
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
