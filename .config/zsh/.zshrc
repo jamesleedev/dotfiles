@@ -130,9 +130,10 @@ alias gaa="git add --all"
 alias gcm="git commit -m"
 alias gcmsg="git commit -m"
 alias gp="git push"
+alias gpf="git push -f"
 alias gpsup='git push -u origin "$(get_current_git_branch)"'
 alias gptag="git push --tags"
-alias gpl="git pull"
+alias gpull="git pull"
 alias gl="git log --oneline"
 alias glog="git log --abbrev-commit --decorate"
 alias glogg="git log --graph --abbrev-commit --pretty=oneline --decorate"
@@ -147,6 +148,9 @@ alias gdiff1="git diff HEAD~1"
 
 # cat
 alias cat="bat"
+
+alias pnpm="corepack pnpm"
+alias pnpx="corepack pnpx"
 
 # === Prompt ===
 # Starship
