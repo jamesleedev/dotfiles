@@ -1,0 +1,2 @@
+export WLR_DRM_DEVICES=/dev/dri/by-name/egpu:/dev/dri/by-name/igpu
+

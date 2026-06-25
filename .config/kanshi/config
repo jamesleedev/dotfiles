@@ -1,0 +1,19 @@
+output "Sharp Corporation 0x1515 Unknown" {
+	mode 1920x1200@59.950
+	position 1920,0
+	scale 1
+	alias $INTERNAL
+}
+
+output "Iiyama North America PLX2481H 1135803000203" {
+	mode 1920x1080@74.973
+	position 0,0
+	scale 1
+	alias $OFFICE
+}
+
+profile office {
+	output $INTERNAL enable
+	output $OFFICE enable
+}
+
