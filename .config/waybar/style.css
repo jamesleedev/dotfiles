@@ -4,9 +4,9 @@
 }
 
 window#waybar {
-  background-color: rgba(43, 48, 59, 0.5);
-  border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-  color: #ffffff;
+  background-color: rgba(29, 41, 61, 0.6274509804);
+  border-bottom: 1px solid rgba(100, 114, 125, 0.5);
+  color: #f8fafc;
   transition-property: background-color;
   transition-duration: 0.5s;
 }
@@ -54,7 +54,7 @@ box.modules-left, box.modules-center, box.modules-right {
 
 #workspaces {
   padding: 4px 2px;
-  background-color: #00bc7d;
+  background-color: #37bc7d;
   border-radius: 9999px;
 }
 #workspaces button {
@@ -63,21 +63,22 @@ box.modules-left, box.modules-center, box.modules-right {
   margin: 0 2px;
   background-color: transparent;
   color: #1d293d;
-  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
 }
 #workspaces button:hover {
   background: rgba(0, 0, 0, 0.2);
 }
 #workspaces button.focused, #workspaces button.active {
-  background-color: #004f3b;
+  background-color: #034f3b;
   color: #f8fafc;
 }
 #workspaces button.urgent {
-  background-color: #a50036;
+  background-color: #a50c36;
 }
 
 #mode {
-  background-color: #64727D;
+  padding: 4px 2px;
+  background-color: #973C08;
+  border-radius: 9999px;
 }
 
 #window {
@@ -106,28 +107,18 @@ box.modules-left, box.modules-center, box.modules-right {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
-#mpd {
-  padding: 0 10px;
-  color: #ffffff;
-}
-
-#window,
-#workspaces {
-  margin: 0 4px;
+#mpd,
+#custom-power {
+  border-radius: 9999px;
+  color: #f8fafc;
+  padding: 0 8px;
+  margin: 0 1px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-  margin-left: 0;
-}
-
 /* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-  margin-right: 0;
-}
-
 #clock {
-  background-color: #64727D;
+  background-color: #334155;
 }
 
 #battery {
@@ -339,7 +330,10 @@ label:focus {
 }
 
 #custom-power {
-  background-color: red;
+  background-color: #a50c36;
+}
+#custom-power:hover {
+  background-color: #8b0836;
 }
 
 /*# sourceMappingURL=style.css.map */
