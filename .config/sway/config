@@ -195,8 +195,8 @@ mode "resize" {
     # up will shrink the containers height
     # down will grow the containers height
     bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
+    bindsym $down resize shrink height 10px
+    bindsym $up resize grow height 10px
     bindsym $right resize grow width 10px
 
     # Ditto, with arrow keys
@@ -236,6 +236,7 @@ include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "
 
 # === CUSTOM ===
 
+# -- keybinds --
 bindsym $mod+Control+l exec swaylock -f
 
 bindsym $mod+Control+Shift+$left move workspace to output left
@@ -245,4 +246,49 @@ bindsym $mod+Control+Shift+$right move workspace to output right
 
 bindsym $mod+Shift+s exec grimshot save area
 bindsym $mod+Control+Shift+s exec grimshot save window
+
+# -- styling --
+font pango:Jetbrains Mono 10
+titlebar_padding 4 2
+
+set $emerald-50 #ecfdf5
+set $emerald-100 #d0fae5
+set $emerald-200 #a4f4cf
+set $emerald-300 #5ee9b5
+set $emerald-400 #31d492
+set $emerald-500 #37bc7d
+set $emerald-600 #2d9966
+set $emerald-700 #1f7a55
+set $emerald-800 #116045
+set $emerald-900 #034f3b
+set $emerald-950 #012c22
+
+set $slate-50 #f8fafc
+set $slate-100 #f1f5f9
+set $slate-200 #e2e8f0
+set $slate-300 #cad5e2
+set $slate-400 #90a1b9
+set $slate-500 #64748b
+set $slate-600 #475569
+set $slate-700 #334155
+set $slate-800 #1d293d
+set $slate-900 #0f172a
+set $slate-950 #020617
+
+set $rose-50 #fff1f2
+set $rose-100 #ffe4e6
+set $rose-200 #ffccd3
+set $rose-300 #ffa1ad
+set $rose-400 #ff637e
+set $rose-500 #ff2056
+set $rose-600 #ec253f
+set $rose-700 #c71d36
+set $rose-800 #a50c36
+set $rose-900 #8b0836
+set $rose-950 #4d0218
+
+client.focused $emerald-900 $emerald-900 $slate-50 $rose-900 $emerald-900
+client.focused_inactive $slate-800 $slate-800 $slate-300 $rose-900 $slate-800
+client.unfocused $slate-800 $slate-800 $slate-500 $rose-900 $slate-800
+client.urgent $rose-900 $rose-900 $slate-300 $rose-900 $rose-900
 
