@@ -1,10 +1,10 @@
 #!/bin/bash
 
-cp ./.tmux.conf ~/
-cp ./.ideavimrc ~/
-cp ./.zshrc ~/
-cp ./.zshenv ~/
-cp ./.zprofile ~/
-cp -r ./.config/ ~/.config/
-cp -r ./.local/ ~/.local/
+cp -i ./.tmux.conf ~/
+cp -i ./.ideavimrc ~/
+cp -i ./.zshrc ~/
+cp -i ./.zshenv ~/
+cp -i ./.zprofile ~/
+cp -i -v -r ./.config/ ~/
+cp -i -v -r ./.local/ ~/
 
