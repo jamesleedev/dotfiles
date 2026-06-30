@@ -127,7 +127,7 @@ window {
     background-color: var(slate-900);
     border: 2px;
     border-radius: 8px;
-    border-color: var(emerald-900);
+    border-color: var(emerald-700);
 }
 
 mainbox {
@@ -150,7 +150,7 @@ listview {
     scrollbar:    true;
     margin: 8px 0 0;
     fixed-height: 0;
-    border:       1px dash 0px 0px;
+    border:       2px dash 0px 0px;
     border-color: var(emerald-700);
 }
 
@@ -173,19 +173,6 @@ button {
 button selected {
     background-color: var(selected-normal-background);
     text-color:       var(selected-normal-foreground);
-}
-num-filtered-rows {
-    expand:     false;
-    text-color: Gray;
-}
-num-rows {
-    expand:     false;
-    text-color: Gray;
-}
-textbox-num-sep {
-    expand:     false;
-    str:        "/";
-    text-color: Gray;
 }
 
 inputbar {
@@ -228,3 +215,20 @@ entry {
     padding: 0;
     margin: 0;
 }
+
+num-filtered-rows {
+    expand:     false;
+    text-color: var(emerald-300);
+}
+
+num-rows {
+    expand:     false;
+    text-color: var(emerald-300);
+}
+
+textbox-num-sep {
+    expand:     false;
+    str:        "/";
+    text-color: var(emerald-300);
+}
+
